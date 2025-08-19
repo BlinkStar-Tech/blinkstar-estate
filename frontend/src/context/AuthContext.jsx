@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect } from "react";
 
 const AuthContext = createContext(null);
 
@@ -8,8 +8,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check if user is logged in
-    const storedUser = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
+    const storedUser = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
     if (storedUser && token) {
       setUser(JSON.parse(storedUser));
@@ -19,15 +19,15 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData, token) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    localStorage.setItem('token', token);
+    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("token", token);
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    window.location.href = '/signin';
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    window.location.href = "/";
   };
 
   if (loading) {
@@ -44,9 +44,9 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
 
-export default AuthContext; 
+export default AuthContext;

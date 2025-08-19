@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Button,
-} from '@mui/material';
-import { ArrowForward } from '@mui/icons-material';
-import PropertyCard from '../property/PropertyCard';
-import Loader from './Loader';
+import React, { useState, useEffect } from "react";
+import { Box, Container, Typography, Grid, Button } from "@mui/material";
+import { ArrowForward } from "@mui/icons-material";
+import PropertyCard from "../property/PropertyCard";
+import Loader from "./Loader";
 
 export default function FeaturedProperties() {
   const [properties, setProperties] = useState([]);
@@ -19,16 +13,16 @@ export default function FeaturedProperties() {
     const fetchRecentProperties = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/property?limit=8&sort=createdAt');
-        
+        const response = await fetch("/api/property?limit=8&sort=createdAt");
+
         if (!response.ok) {
-          throw new Error('Failed to fetch properties');
+          throw new Error("Failed to fetch properties");
         }
-        
+
         const data = await response.json();
         setProperties(data);
       } catch (err) {
-        console.error('Error fetching recent properties:', err);
+        console.error("Error fetching recent properties:", err);
         setError(err.message);
       } finally {
         setLoading(false);
@@ -39,15 +33,15 @@ export default function FeaturedProperties() {
   }, []);
 
   const getImageUrl = (imagePath) => {
-    if (!imagePath) return '/placeholder-property.jpg';
-    if (imagePath.startsWith('http')) return imagePath;
+    if (!imagePath) return "/placeholder-property.jpg";
+    if (imagePath.startsWith("http")) return imagePath;
     return `http://localhost:5000${imagePath}`;
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
@@ -55,14 +49,14 @@ export default function FeaturedProperties() {
 
   if (loading) {
     return (
-      <Box 
-        sx={{ 
-          py: { xs: 4, sm: 6, md: 8 }, 
-          backgroundColor: 'background.default',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '300px'
+      <Box
+        sx={{
+          py: { xs: 4, sm: 6, md: 8 },
+          backgroundColor: "background.default",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "300px",
         }}
       >
         <Loader size="large" />
@@ -72,11 +66,11 @@ export default function FeaturedProperties() {
 
   if (error) {
     return (
-      <Box 
-        sx={{ 
-          py: { xs: 4, sm: 6, md: 8 }, 
-          backgroundColor: 'background.default',
-          textAlign: 'center'
+      <Box
+        sx={{
+          py: { xs: 4, sm: 6, md: 8 },
+          backgroundColor: "background.default",
+          textAlign: "center",
         }}
       >
         <Typography color="error" variant="h6">
@@ -87,27 +81,27 @@ export default function FeaturedProperties() {
   }
 
   return (
-    <Box 
-      sx={{ 
-        py: { xs: 4, sm: 6, md: 8 }, 
-        backgroundColor: 'background.default',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
+    <Box
+      sx={{
+        py: { xs: 4, sm: 6, md: 8 },
+        backgroundColor: "background.default",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
-      <Container 
+      <Container
         maxWidth="lg"
         sx={{
-          px: { xs: 2, sm: 3, md: 4 }
+          px: { xs: 2, sm: 3, md: 4 },
         }}
       >
-        <Box 
-          sx={{ 
-            mb: { xs: 4, sm: 5, md: 6 }, 
-            textAlign: 'center',
-            maxWidth: '800px',
-            mx: 'auto'
+        <Box
+          sx={{
+            mb: { xs: 4, sm: 5, md: 6 },
+            textAlign: "center",
+            maxWidth: "800px",
+            mx: "auto",
           }}
         >
           <Typography
@@ -116,7 +110,7 @@ export default function FeaturedProperties() {
             sx={{
               mb: 2,
               fontWeight: 700,
-              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
+              fontSize: { xs: "1.75rem", sm: "2rem", md: "2.5rem" },
             }}
           >
             Recent Properties
@@ -126,8 +120,8 @@ export default function FeaturedProperties() {
             color="text.secondary"
             sx={{
               mb: { xs: 3, sm: 4 },
-              fontSize: { xs: '0.875rem', sm: '1rem', md: '1.25rem' },
-              px: { xs: 2, sm: 0 }
+              fontSize: { xs: "0.875rem", sm: "1rem", md: "1.25rem" },
+              px: { xs: 2, sm: 0 },
             }}
           >
             Discover our latest property listings
@@ -135,10 +129,10 @@ export default function FeaturedProperties() {
         </Box>
 
         {properties.length === 0 ? (
-          <Box 
-            sx={{ 
-              textAlign: 'center',
-              py: 8
+          <Box
+            sx={{
+              textAlign: "center",
+              py: 8,
             }}
           >
             <Typography variant="h6" color="text.secondary">
@@ -149,44 +143,42 @@ export default function FeaturedProperties() {
             </Typography>
           </Box>
         ) : (
-          <Grid 
-            container 
+          <Grid
+            container
             spacing={{ xs: 2, sm: 3, md: 4 }}
             justifyContent="center"
             alignItems="stretch"
           >
             {properties.slice(0, 8).map((property) => (
-              <Grid 
-                item 
-                xs={12} 
-                sm={6} 
-                md={4} 
-                lg={3} 
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
                 key={property._id}
                 sx={{
-                  display: 'flex',
-                  justifyContent: 'center'
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                <Box 
-                  sx={{ 
-                    width: '100%',
-                    maxWidth: { xs: '400px', sm: '100%' }
+                <Box
+                  sx={{
+                    width: "100%",
+                    maxWidth: { xs: "400px", sm: "100%" },
                   }}
                 >
-                  <PropertyCard 
-                    property={property}
-                  />
+                  <PropertyCard property={property} />
                 </Box>
               </Grid>
             ))}
           </Grid>
         )}
 
-        <Box 
-          sx={{ 
-            mt: { xs: 4, sm: 5, md: 6 }, 
-            textAlign: 'center'
+        <Box
+          sx={{
+            mt: { xs: 4, sm: 5, md: 6 },
+            textAlign: "center",
           }}
         >
           <Button
@@ -198,7 +190,7 @@ export default function FeaturedProperties() {
               px: { xs: 3, sm: 4 },
               py: { xs: 1, sm: 1.5 },
               borderRadius: 2,
-              fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+              fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
             }}
           >
             View All Properties
@@ -207,4 +199,4 @@ export default function FeaturedProperties() {
       </Container>
     </Box>
   );
-} 
+}

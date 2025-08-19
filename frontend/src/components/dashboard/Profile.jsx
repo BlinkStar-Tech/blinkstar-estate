@@ -49,8 +49,9 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
+
 export default function Profile() {
-  const { user } = useAuth();
+  const { user, setUser } = useAuth();
   const [editing, setEditing] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const [formData, setFormData] = useState({
@@ -93,14 +94,24 @@ export default function Profile() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Here you would typically make an API call to update the user profile
-      // For now, we'll just simulate a successful update
+      const token = localStorage.getItem('token');
+      const res = await fetch('/api/users/me', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token ? `Bearer ${token}` : '',
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error('Failed to update profile');
+      const updatedUser = await res.json();
       setAlert({
         open: true,
         message: 'Profile updated successfully!',
         severity: 'success',
       });
       setEditing(false);
+      if (setUser) setUser(updatedUser);
     } catch (error) {
       setAlert({
         open: true,

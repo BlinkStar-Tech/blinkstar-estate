@@ -8,6 +8,7 @@ import {
   Chip,
   IconButton,
   Stack,
+  Button,
 } from '@mui/material';
 import {
   LocationOn,
@@ -62,7 +63,7 @@ const PropertyInfo = styled(Box)(({ theme }) => ({
   fontSize: '0.875rem',
 }));
 
-export default function PropertyCard({ property }) {
+export default function PropertyCard({ property, onEdit, onDelete }) {
   const [isFavorite, setIsFavorite] = React.useState(property.isFavorite);
 
   const toggleFavorite = (event) => {
@@ -90,7 +91,7 @@ export default function PropertyCard({ property }) {
           )}
         </FavoriteButton>
         <PropertyImage
-          image={property.imageUrl}
+          image={property.images && property.images[0]}
           title={property.title}
         />
       </Box>
@@ -133,7 +134,16 @@ export default function PropertyCard({ property }) {
             </PropertyInfo>
           </Box>
         </Stack>
+        {/* Edit/Delete Actions */}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, mt: 2 }}>
+          {onEdit && (
+            <Button size="small" variant="outlined" color="primary" onClick={onEdit}>Edit</Button>
+          )}
+          {onDelete && (
+            <Button size="small" variant="outlined" color="error" onClick={onDelete}>Delete</Button>
+          )}
+        </Box>
       </CardContent>
     </StyledCard>
   );
-} 
+}

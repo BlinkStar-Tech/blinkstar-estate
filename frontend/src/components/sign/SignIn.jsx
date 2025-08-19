@@ -29,22 +29,23 @@ const Card = styled(MuiCard)(({ theme }) => ({
   padding: theme.spacing(2),
   gap: theme.spacing(0.5),
   maxWidth: "400px",
-  boxShadow: "hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px",
-  [theme.breakpoints.down('sm')]: {
+  boxShadow:
+    "hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px",
+  [theme.breakpoints.down("sm")]: {
     padding: theme.spacing(1.5),
-    maxHeight: 'calc(100vh - 32px)', // Account for container padding
-    overflowY: 'auto',
+    maxHeight: "calc(100vh - 32px)", // Account for container padding
+    overflowY: "auto",
   },
 }));
 
 // Styled container for the sign-in layout
 const SignInContainer = styled(Container)(({ theme }) => ({
-  minHeight: '100dvh',
+  minHeight: "100dvh",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   padding: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down("sm")]: {
     padding: theme.spacing(2),
   },
 }));
@@ -56,7 +57,7 @@ const FormFields = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1.5),
   marginTop: theme.spacing(1),
   marginBottom: theme.spacing(1),
-  width: '100%',
+  width: "100%",
 }));
 
 // Styled button
@@ -65,7 +66,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(1),
   marginBottom: theme.spacing(1),
   fontWeight: 600,
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down("sm")]: {
     padding: theme.spacing(1),
   },
 }));
@@ -83,7 +84,7 @@ const StyledHeading = styled(Typography)(({ theme }) => ({
   fontSize: "1.5rem",
   fontWeight: 600,
   marginBottom: theme.spacing(0.5),
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down("sm")]: {
     fontSize: "1.25rem",
   },
 }));
@@ -98,10 +99,10 @@ const BrandName = styled(Typography)(({ theme }) => ({
 
 // Styled form control
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
-  '& .MuiFormLabel-root': {
+  "& .MuiFormLabel-root": {
     marginBottom: theme.spacing(0.5),
   },
-  '& .MuiInputBase-root': {
+  "& .MuiInputBase-root": {
     marginBottom: theme.spacing(0.5),
   },
 }));
@@ -171,8 +172,8 @@ export default function SignIn() {
         severity: "success",
       });
 
-      // Redirect to dashboard
-      window.location.href = "/dashboard";
+      // Redirect to home page
+      window.location.href = "/";
     } catch (error) {
       setAlert({
         open: true,
@@ -222,24 +223,20 @@ export default function SignIn() {
   };
 
   return (
-    <Box sx={{ 
-      minHeight: '100dvh',
-      display: 'flex',
-      flexDirection: 'column',
-      bgcolor: (theme) => theme.palette.background.default
-    }}>
+    <Box
+      sx={{
+        minHeight: "100dvh",
+        display: "flex",
+        flexDirection: "column",
+        bgcolor: (theme) => theme.palette.background.default,
+      }}
+    >
       <CssBaseline />
       <SignInContainer maxWidth="sm">
         <Card variant="outlined">
           <BrandName variant="h6">BlinkStar Properties</BrandName>
-          <StyledHeading variant="h1">
-            Sign in
-          </StyledHeading>
-          <FormFields
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-          >
+          <StyledHeading variant="h1">Sign in</StyledHeading>
+          <FormFields component="form" onSubmit={handleSubmit} noValidate>
             <StyledFormControl>
               <FormLabel htmlFor="email">Email</FormLabel>
               <TextField
@@ -275,9 +272,22 @@ export default function SignIn() {
                 disabled={loading}
               />
             </StyledFormControl>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" disabled={loading} size="small" />}
+                control={
+                  <Checkbox
+                    value="remember"
+                    color="primary"
+                    disabled={loading}
+                    size="small"
+                  />
+                }
                 label={<Typography variant="body2">Remember me</Typography>}
               />
               <Link
@@ -288,8 +298,8 @@ export default function SignIn() {
                 sx={{
                   textDecoration: "none",
                   "&:hover": {
-                    textDecoration: "underline"
-                  }
+                    textDecoration: "underline",
+                  },
                 }}
                 disabled={loading}
               >
@@ -306,9 +316,9 @@ export default function SignIn() {
               {loading ? <CircularProgress size={24} /> : "Sign in"}
             </StyledButton>
           </FormFields>
-          
+
           <Divider sx={{ my: 1 }}>or</Divider>
-          
+
           <SocialButtons>
             <Button
               fullWidth
@@ -330,23 +340,23 @@ export default function SignIn() {
             >
               Sign in with Facebook
             </Button>
-            <Typography 
+            <Typography
               variant="body2"
-              sx={{ 
-                textAlign: "center", 
-                mt: 1
+              sx={{
+                textAlign: "center",
+                mt: 1,
               }}
             >
               Don&apos;t have an account?{" "}
-              <Link 
-                href="/signup" 
+              <Link
+                href="/signup"
                 variant="body2"
-                sx={{ 
+                sx={{
                   fontWeight: 500,
                   textDecoration: "none",
                   "&:hover": {
-                    textDecoration: "underline"
-                  }
+                    textDecoration: "underline",
+                  },
                 }}
               >
                 Sign up
@@ -360,17 +370,17 @@ export default function SignIn() {
         open={alert.open}
         autoHideDuration={6000}
         onClose={handleAlertClose}
-        anchorOrigin={{ 
-          vertical: "top", 
-          horizontal: "center" 
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
         }}
         sx={{
-          position: 'fixed',
-          top: { xs: 0, sm: 24 }
+          position: "fixed",
+          top: { xs: 0, sm: 24 },
         }}
       >
-        <Alert 
-          onClose={handleAlertClose} 
+        <Alert
+          onClose={handleAlertClose}
           severity={alert.severity}
           variant="filled"
           elevation={6}
