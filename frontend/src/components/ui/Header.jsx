@@ -169,6 +169,15 @@ const Header = () => {
                   {link.label}
                 </Button>
               ))}
+              {user && (
+                <Button
+                  color="inherit"
+                  onClick={handleProfile}
+                  sx={{ fontWeight: 600 }}
+                >
+                  Profile
+                </Button>
+              )}
             </Box>
             <Box display="flex" alignItems="center" gap={2}>
               {!user && window.location.pathname !== "/properties" ? (
