@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Card,
   CardContent,
@@ -9,7 +9,7 @@ import {
   IconButton,
   Stack,
   Button,
-} from '@mui/material';
+} from "@mui/material";
 import {
   LocationOn,
   Hotel,
@@ -17,50 +17,53 @@ import {
   DirectionsCar,
   Favorite,
   FavoriteBorder,
-} from '@mui/icons-material';
-import { styled } from '@mui/material/styles';
+} from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  height: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  position: 'relative',
-  transition: 'transform 0.3s ease-in-out',
-  '&:hover': {
-    transform: 'translateY(-5px)',
+  height: "100%",
+  display: "flex",
+  flexDirection: "column",
+  position: "relative",
+  transition: "transform 0.3s ease-in-out",
+  "&:hover": {
+    transform: "translateY(-5px)",
   },
 }));
 
 const PropertyImage = styled(CardMedia)(({ theme }) => ({
-  paddingTop: '56.25%', // 16:9 aspect ratio
-  position: 'relative',
+  paddingTop: "56.25%", // 16:9 aspect ratio
+  position: "relative",
 }));
 
 const PropertyStatus = styled(Chip)(({ theme, status }) => ({
-  position: 'absolute',
+  position: "absolute",
   top: theme.spacing(2),
   left: theme.spacing(2),
   zIndex: 1,
-  backgroundColor: status === 'For Sale' ? theme.palette.success.main : theme.palette.primary.main,
+  backgroundColor:
+    status === "For Sale"
+      ? theme.palette.success.main
+      : theme.palette.primary.main,
   color: theme.palette.common.white,
 }));
 
 const FavoriteButton = styled(IconButton)(({ theme }) => ({
-  position: 'absolute',
+  position: "absolute",
   top: theme.spacing(1),
   right: theme.spacing(1),
   backgroundColor: theme.palette.background.paper,
-  '&:hover': {
+  "&:hover": {
     backgroundColor: theme.palette.background.paper,
   },
 }));
 
 const PropertyInfo = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+  display: "flex",
+  alignItems: "center",
   gap: theme.spacing(1),
   color: theme.palette.text.secondary,
-  fontSize: '0.875rem',
+  fontSize: "0.875rem",
 }));
 
 export default function PropertyCard({ property, onEdit, onDelete }) {
@@ -73,7 +76,7 @@ export default function PropertyCard({ property, onEdit, onDelete }) {
 
   return (
     <StyledCard>
-      <Box sx={{ position: 'relative' }}>
+      <Box sx={{ position: "relative" }}>
         <PropertyStatus
           label={property.status}
           status={property.status}
@@ -85,7 +88,7 @@ export default function PropertyCard({ property, onEdit, onDelete }) {
           aria-label="add to favorites"
         >
           {isFavorite ? (
-            <Favorite sx={{ color: 'error.main' }} />
+            <Favorite sx={{ color: "error.main" }} />
           ) : (
             <FavoriteBorder />
           )}
@@ -106,17 +109,13 @@ export default function PropertyCard({ property, onEdit, onDelete }) {
               {property.location}
             </Typography>
           </PropertyInfo>
-          <Typography
-            variant="h6"
-            color="primary"
-            sx={{ fontWeight: 'bold' }}
-          >
+          <Typography variant="h6" color="primary" sx={{ fontWeight: "bold" }}>
             ${property.price.toLocaleString()}
           </Typography>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
+              display: "flex",
+              justifyContent: "space-between",
               mt: 2,
             }}
           >
@@ -135,12 +134,28 @@ export default function PropertyCard({ property, onEdit, onDelete }) {
           </Box>
         </Stack>
         {/* Edit/Delete Actions */}
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, mt: 2 }}>
+        <Box
+          sx={{ display: "flex", justifyContent: "flex-end", gap: 1, mt: 2 }}
+        >
           {onEdit && (
-            <Button size="small" variant="outlined" color="primary" onClick={onEdit}>Edit</Button>
+            <Button
+              size="small"
+              variant="outlined"
+              color="primary"
+              onClick={onEdit}
+            >
+              Edit
+            </Button>
           )}
           {onDelete && (
-            <Button size="small" variant="outlined" color="error" onClick={onDelete}>Delete</Button>
+            <Button
+              size="small"
+              variant="outlined"
+              color="error"
+              onClick={onDelete}
+            >
+              Delete
+            </Button>
           )}
         </Box>
       </CardContent>

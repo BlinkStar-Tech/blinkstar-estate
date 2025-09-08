@@ -360,10 +360,33 @@ const PropertyDetail = () => {
             <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
               Contact About This Property
             </Typography>
-            <ContactForm
-              propertyTitle={property.title}
-              propertyId={property._id}
-            />
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <Button
+                variant="contained"
+                color="success"
+                href={`https://api.whatsapp.com/send?phone=263782931905&text=Hi BlinkStar Properties, I would like to get more information about this property: ${window.location.href}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                sx={{ mb: 1 }}
+              >
+                WhatsApp
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                href="tel:+263782931905"
+                sx={{ mb: 1 }}
+              >
+                Call
+              </Button>
+              <Button
+                variant="outlined"
+                color="secondary"
+                href="mailto:blinkstardesigns@gmail.com"
+              >
+                Email
+              </Button>
+            </Box>
           </Paper>
         </Grid>
       </Grid>

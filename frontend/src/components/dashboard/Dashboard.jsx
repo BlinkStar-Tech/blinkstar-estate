@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { io as socketIOClient } from "socket.io-client";
 import { Link, useNavigate } from "react-router-dom";
 import {
   AppBar,
@@ -42,11 +41,9 @@ import bsLogo from "../../bs.png";
 import { useAuth } from "../../context/AuthContext";
 import PropertyCard from "./PropertyCard";
 import Loader from "../ui/Loader";
+import { authFetch } from "../../utils/authFetch";
 
 // Setup Socket.IO client
-const socket = socketIOClient(
-  process.env.REACT_APP_BACKEND_URL || "http://localhost:5000"
-);
 
 const drawerWidth = 240;
 
@@ -129,23 +126,16 @@ export default function Dashboard() {
     const fetchDashboardData = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem("token");
         // Fetch user profile
-        const userRes = await fetch("/api/users/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const userRes = await authFetch("/api/users/me");
         const userData = await userRes.json();
         setUser(userData);
         // Fetch user's properties
-        const propRes = await fetch(`/api/property/user/${userData._id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const propRes = await authFetch(`/api/property/user/${userData._id}`);
         const propData = await propRes.json();
         setProperties(propData.properties || []);
         // Fetch dashboard statistics
-        const statsRes = await fetch(`/api/property/stats/${userData._id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const statsRes = await authFetch(`/api/property/stats/${userData._id}`);
         const statsData = await statsRes.json();
         setStats(statsData);
       } catch (err) {
@@ -158,32 +148,8 @@ export default function Dashboard() {
     }
 
     // Listen for real-time property view updates
-    socket.on("propertyViewUpdated", ({ propertyId, views }) => {
-      setProperties((prevProperties) =>
-        prevProperties.map((prop) =>
-          prop._id === propertyId ? { ...prop, views } : prop
-        )
-      );
-      setStats((prevStats) => ({
-        ...prevStats,
-        totalViews: prevStats.totalViews + 1,
-      }));
-    });
 
     // Listen for real-time new property listings
-    socket.on("newProperty", (property) => {
-      setProperties((prevProperties) => [property, ...prevProperties]);
-      setStats((prevStats) => ({
-        ...prevStats,
-        totalProperties: prevStats.totalProperties + 1,
-        activeListings: prevStats.activeListings + 1,
-      }));
-    });
-
-    return () => {
-      socket.off("propertyViewUpdated");
-      socket.off("newProperty");
-    };
   }, [authUser]);
 
   const handleDrawerToggle = () => {
@@ -431,14 +397,10 @@ export default function Dashboard() {
                             )
                           ) {
                             try {
-                              const token = localStorage.getItem("token");
-                              const res = await fetch(
+                              const res = await authFetch(
                                 `/api/property/${property._id}`,
                                 {
                                   method: "DELETE",
-                                  headers: token
-                                    ? { Authorization: `Bearer ${token}` }
-                                    : {},
                                   credentials: "include",
                                 }
                               );

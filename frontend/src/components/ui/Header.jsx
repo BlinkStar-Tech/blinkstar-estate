@@ -110,10 +110,10 @@ const Header = () => {
                   ))}
                   {!user && window.location.pathname !== "/properties" ? (
                     <>
-                      <ListItem button onClick={() => handleNav("/signin")}> 
+                      <ListItem button onClick={() => handleNav("/signin")}>
                         <ListItemText primary="Sign In" />
                       </ListItem>
-                      <ListItem button onClick={() => handleNav("/signup")}> 
+                      <ListItem button onClick={() => handleNav("/signup")}>
                         <ListItemText primary="Sign Up" />
                       </ListItem>
                     </>

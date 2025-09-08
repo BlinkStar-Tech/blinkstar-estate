@@ -19,6 +19,7 @@ import Alert from "@mui/material/Alert";
 import { styled } from "@mui/material/styles";
 import ForgotPassword from "./ForgotPassword";
 import { GoogleIcon, FacebookIcon } from "./CustomIcons";
+import { authFetch } from "../../utils/authFetch";
 import { useAuth } from "../../context/AuthContext";
 
 // Styled Card component for sign-in form
@@ -149,7 +150,7 @@ export default function SignIn() {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await authFetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
