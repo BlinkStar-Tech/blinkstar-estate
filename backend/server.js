@@ -75,7 +75,19 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`,
+  process.env.RENDER_FRONTEND_URL,
+  process.env.NODE_ENV !== "production" && "http://localhost:3000",
+].filter(Boolean);
+
+app.use(
+  cors({
+    origin: allowedOrigins.length > 0 ? allowedOrigins : "*",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
@@ -89,10 +101,7 @@ mongoose
   .connect(
     process.env.MONGO_URI ||
       "mongodb+srv://blinkstardesigns:blinkstardesigns@cluster0.hked8ma.mongodb.net/blinkstar-estate",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
+    {}
   )
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch((err) => {

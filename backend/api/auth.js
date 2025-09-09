@@ -39,11 +39,16 @@ if (mongoose.connection.readyState === 0) {
         return res.status(400).json({ message: 'User already exists' });
       }
 
+
+      // Set trialExpires to 1 year from now
+      const trialExpires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+
       // Create new user
       const user = new User({
         email,
         password,
-        name
+        name,
+        trialExpires
       });
 
       // Save user
@@ -54,7 +59,7 @@ if (mongoose.connection.readyState === 0) {
       const token = jwt.sign(
         { userId: user._id },
         process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '1h' }
+        { expiresIn: '3650d' } // 10 years
       );
 
       res.status(201).json({
@@ -101,7 +106,7 @@ if (mongoose.connection.readyState === 0) {
       const token = jwt.sign(
         { userId: user._id },
         process.env.JWT_SECRET || 'your-secret-key',
-        { expiresIn: '1h' }
+        { expiresIn: '30d' }
       );
 
       res.json({
