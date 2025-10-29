@@ -1,4 +1,5 @@
-const API_BASE = process.env.REACT_APP_API_URL || "";
+const API_BASE =
+  process.env.REACT_APP_API_URL || "https://blinkstar-estate.onrender.com";
 
 export async function authFetch(path, init = {}) {
   const token = localStorage.getItem("token");
@@ -6,7 +7,11 @@ export async function authFetch(path, init = {}) {
   if (token) headers.Authorization = `Bearer ${token}`;
 
   const url = path.startsWith("http") ? path : `${API_BASE}${path}`;
-  const res = await fetch(url, { ...init, headers, credentials: init.credentials || "include" });
+  const res = await fetch(url, {
+    ...init,
+    headers,
+    credentials: init.credentials || "include",
+  });
 
   if (res.status === 401) {
     localStorage.removeItem("token");
@@ -18,6 +23,3 @@ export async function authFetch(path, init = {}) {
 }
 
 export default authFetch;
-
-
-
