@@ -100,14 +100,18 @@ mongoose.connection.on("error", (err) => {
 mongoose
   .connect(
     process.env.MONGO_URI ||
-      "mongodb+srv://blinkstardesigns:blinkstardesigns@cluster0.hked8ma.mongodb.net/blinkstar-estate",
-    {}
+      "mongodb+srv://blinkstardesigns:blinkstardesigns@cluster0.hked8ma.mongodb.net/blinkstar-estate?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
   )
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch((err) => {
     console.error("MongoDB connection error:", err);
     process.exit(1);
   });
+
 
 // Test route
 app.get("/api/test", (req, res) => {
