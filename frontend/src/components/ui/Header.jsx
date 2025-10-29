@@ -131,16 +131,16 @@ const Header = () => {
               </Box>
             </Drawer>
             {user && (
-              <Tooltip title={user.name || user.email}>
+              <Tooltip title={user?.name || user?.email || "Account"}>
                 <IconButton
                   onClick={handleAvatarClick}
                   size="large"
                   sx={{ ml: 1 }}
                 >
                   <Avatar>
-                    {user.name
-                      ? user.name[0].toUpperCase()
-                      : user.email[0].toUpperCase()}
+                    {(
+                      user?.name?.[0] || user?.email?.[0] || "U"
+                    ).toUpperCase()}
                   </Avatar>
                 </IconButton>
               </Tooltip>
@@ -199,16 +199,16 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  <Tooltip title={user.name || user.email}>
+                  <Tooltip title={user?.name || user?.email || "Account"}>
                     <IconButton
                       onClick={handleAvatarClick}
                       size="large"
                       sx={{ ml: 1 }}
                     >
                       <Avatar>
-                        {user.name
-                          ? user.name[0].toUpperCase()
-                          : user.email[0].toUpperCase()}
+                        {(
+                          user?.name?.[0] || user?.email?.[0] || "U"
+                        ).toUpperCase()}
                       </Avatar>
                     </IconButton>
                   </Tooltip>

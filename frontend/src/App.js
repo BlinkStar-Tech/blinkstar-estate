@@ -42,16 +42,9 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route
-              path="/property"
-              element={
-                <PrivateRoute>
-                  <PropertyCard />
-                </PrivateRoute>
-              }
-            />
-                          <Route path="/properties" element={<PrivateRoute><Properties /></PrivateRoute>} />
-              <Route path="/property/:id" element={<PrivateRoute><PropertyDetail /></PrivateRoute>} />
+            <Route path="/property" element={<PropertyCard />} />
+            <Route path="/properties" element={<Properties />} />
+            <Route path="/property/:id" element={<PropertyDetail />} />
             <Route
               path="/property/add"
               element={
